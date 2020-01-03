@@ -5,7 +5,6 @@
 //  Created by Artem Grebenkin on 11/28/19.
 //  Copyright © 2019 Artem Grebenkin. All rights reserved.
 //
-
 import UIKit
 
 class GalleryCollectionViewCell: UICollectionViewCell {
