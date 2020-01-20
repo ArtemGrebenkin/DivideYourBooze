@@ -12,7 +12,7 @@ class DividerVC: UIViewController {
     private var galleryCollectionView = GalleryCollectionView()
     private var plusMemberButton = MemberButton()
     private var plusStackView = MemberStackView()
-    private var currentRowStackView = RowStackViews()
+    
     private var mainStackView: UIStackView = {
         var main = UIStackView()
         main.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +22,7 @@ class DividerVC: UIViewController {
         main.distribution = .fillEqually
         return main
     }()
+    
     var members = [MemberModel]()
     
     lazy var popUpWindow: PopUp = {
@@ -38,6 +39,7 @@ class DividerVC: UIViewController {
     }()
     
     override func viewDidLoad() {
+      
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         view.addSubview(galleryCollectionView)
@@ -55,7 +57,7 @@ class DividerVC: UIViewController {
         view.addSubview(mainStackView)
         mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
-        mainStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        //mainStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         
         view.addSubview(visualEffectView)
         visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -88,19 +90,24 @@ class DividerVC: UIViewController {
         member.male = male
         members.append(member)
         self.rearrangeMainStackView()
-        //print(members.count)
+      
     }
     
     private func rearrangeMainStackView() {
+        //clear all stack views
         for view in mainStackView.subviews {
+            //print("clear all stack views")
             mainStackView.removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
+        
         let manager = RowStackViewManager()
         manager.members = members
         manager.plusButton = plusMemberButton
         let rowStackViews = manager.makeStackViewsArray()
-        
+        //fill main vertical stack
         for stackV in rowStackViews {
+            //print("fill main vertical stack")
             mainStackView.addArrangedSubview(stackV)
         }
     }
@@ -133,7 +140,7 @@ extension DividerVC: PopUpDelegate {
         }
     }
     
-    func deBlurWindow() {
+    private func deBlurWindow() {
         self.visualEffectView.alpha = 0
         self.popUpWindow.alpha = 0
         self.popUpWindow.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)

@@ -31,30 +31,39 @@ class RowStackViewManager {
         let screenHeight = Int(getScreenSize().height - 250)
         let buttonHeight = Int(MemberButton.height + 20)
         let buttonInColum = screenHeight / buttonHeight
-        print("buttonInColum \(buttonInColum)")
+        //print("buttonInColum \(buttonInColum)")
         
         
         
-        var arraySV = [RowStackViews]()
+        var arrayRowStack = [RowStackViews]()
         
         let rowStack = RowStackViews()
-        guard let members = members else {return arraySV}
+   
+        
+        guard let members = members else {return arrayRowStack}
         for (index, member) in members.enumerated() {
             rowStack.addArrangedSubview(createMemberStackView(member: member))
+            print("ind = \(index), mems = \(members.count)")
             if index % buttonInRow == 0 && index != 0 {
-                arraySV.append(rowStack)
-                rowStack.deleteAllViews()
+                let row = RowStackViews()
+                
+                for view in rowStack.subviews {
+                    
+                    row.addSubview(view)
+                }
+                arrayRowStack.append(row)
+                print("arrayRowStack1 = \(arrayRowStack.count)")
+                rowStack.deleteAllSubViews()
             }
-            
         }
         
         let plusButtonSV = MemberStackView()
-        guard let plusButton = plusButton else {return arraySV}
-        plusButtonSV.addArrangedSubview(plusButton)
+        guard let plus = plusButton else {return arrayRowStack}
+        plusButtonSV.addArrangedSubview(plus)
         rowStack.addArrangedSubview(plusButtonSV)
-        arraySV.append(rowStack)
-        
-        return arraySV
+        arrayRowStack.append(rowStack)
+        print("arrayRowStack2 = \(arrayRowStack.count)")
+        return arrayRowStack
     }
     
     private func createMemberStackView(member: MemberModel) -> MemberStackView {

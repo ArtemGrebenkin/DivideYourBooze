@@ -10,9 +10,11 @@ import UIKit
 
 class RowStackViews: UIStackView {
     
-    func deleteAllViews() {
+    func deleteAllSubViews() {
         for view in subviews {
+            print("deleteAllViewsFromRowStackViews")
             removeArrangedSubview(view)
+            view.removeFromSuperview()
         }
     }
     
