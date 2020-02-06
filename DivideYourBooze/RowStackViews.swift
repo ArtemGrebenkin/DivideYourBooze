@@ -10,13 +10,13 @@ import UIKit
 
 class RowStackViews: UIStackView {
     
-    func deleteAllSubViews() {
-        for view in subviews {
-            print("deleteAllViewsFromRowStackViews")
-            removeArrangedSubview(view)
-            view.removeFromSuperview()
-        }
-    }
+//    func deleteAllSubViews() {
+//        for view in subviews {
+//            print("deleteAllViewsFromRowStackViews")
+//            removeArrangedSubview(view)
+//            view.removeFromSuperview()
+//        }
+//    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)

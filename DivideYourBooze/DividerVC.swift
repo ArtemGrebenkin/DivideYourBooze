@@ -10,27 +10,14 @@ import UIKit
 class DividerVC: UIViewController {
     
     private var galleryCollectionView = GalleryCollectionView()
-    private var plusMemberButton = MemberButton()
-    private var plusStackView = MemberStackView()
-    
-    private var mainStackView: UIStackView = {
-        var main = UIStackView()
-        main.translatesAutoresizingMaskIntoConstraints = false
-        main.axis = .vertical
-        main.alignment = .center
-        main.spacing = 5
-        main.distribution = .fillEqually
-        return main
-    }()
-    
+    private var memberButtons = [MemberStackView]()
+    let sizeManager = SizeManager()
     var members = [MemberModel]()
-    
     lazy var popUpWindow: PopUp = {
         let view = PopUp()
         view.delegate = self
         return view
     }()
-    
     let visualEffectView: UIVisualEffectView = {
         let blurEffect = UIBlurEffect(style: .light)
         let view = UIVisualEffectView(effect: blurEffect)
@@ -39,25 +26,26 @@ class DividerVC: UIViewController {
     }()
     
     override func viewDidLoad() {
-      
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         view.addSubview(galleryCollectionView)
         galleryCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         galleryCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        galleryCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
-        galleryCollectionView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        galleryCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: sizeManager.space).isActive = true
+        galleryCollectionView.heightAnchor.constraint(equalToConstant: galleryCollectionView.height).isActive = true
         
         galleryCollectionView.setDefaultCell(cells: ItemModel.fetchItem())
         
-        plusMemberButton.addTarget(self, action: #selector(plusButtonAction), for: .touchUpInside)
-        
-        rearrangeMainStackView()
-        
-        view.addSubview(mainStackView)
-        mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
-        //mainStackView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        let savedDataEmpty = true
+        setInactiveButtons(startFromRow: 1, startFromColumn: 1)
+        if savedDataEmpty {
+            var firstMember = MemberModel()
+            firstMember.name = "Me"
+            firstMember.avatar = UIImage.DefaultMemberImage.yellow
+            firstMember.color = UIColor.ColorMember.yellow
+            members.append(firstMember)
+            activateMemberButtonForEach(members)
+        }
         
         view.addSubview(visualEffectView)
         visualEffectView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -67,66 +55,78 @@ class DividerVC: UIViewController {
         visualEffectView.alpha = 0
     }
     
-    @objc func plusButtonAction(sender: UIButton!) {
-        
-        view.addSubview(popUpWindow)
-        popUpWindow.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        popUpWindow.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -150).isActive = true
-        popUpWindow.heightAnchor.constraint(equalToConstant: 450).isActive = true
-        popUpWindow.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        popUpWindow.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-        popUpWindow.alpha = 0
-        
-        UIView.animate(withDuration: 0.2) {
-            self.visualEffectView.alpha = 0.5
-            self.popUpWindow.alpha = 1
-            self.popUpWindow.transform = CGAffineTransform.identity
+    @objc func buttonAction(sender: MemberButton) {
+        if sender.activited {
+            //set new member with dialog
+            view.addSubview(popUpWindow)
+            popUpWindow.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            popUpWindow.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50).isActive = true
+            popUpWindow.heightAnchor.constraint(equalToConstant: 350).isActive = true
+            popUpWindow.widthAnchor.constraint(equalToConstant: 250).isActive = true
+            popUpWindow.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            popUpWindow.alpha = 0
+            
+            UIView.animate(withDuration: 0.2) {
+                self.visualEffectView.alpha = 0.5
+                self.popUpWindow.alpha = 1
+                self.popUpWindow.transform = CGAffineTransform.identity
+            }
+        } else {
+            //set new member without dialog (fast)
+            sender.activited = true
+            self.newMember()
         }
     }
     
-    func newMember(male: Bool) {
-        var member = MemberModel(male: male)
-        member.setDefaultPerson()
-        member.male = male
+    func newMember() {
+        let member = MemberModel()
         members.append(member)
-        self.rearrangeMainStackView()
-      
+        activateMemberButtonForEach(members)
     }
     
-    private func rearrangeMainStackView() {
-        //clear all stack views
-        for view in mainStackView.subviews {
-            //print("clear all stack views")
-            mainStackView.removeArrangedSubview(view)
-            view.removeFromSuperview()
-        }
+    func editMember() {
         
-        let manager = RowStackViewManager()
-        manager.members = members
-        manager.plusButton = plusMemberButton
-        let rowStackViews = manager.makeStackViewsArray()
-        //fill main vertical stack
-        for stackV in rowStackViews {
-            //print("fill main vertical stack")
-            mainStackView.addArrangedSubview(stackV)
+    }
+    
+    private func setInactiveButtons(startFromRow: Int, startFromColumn: Int){
+        let bm = ButtonManager()
+        let buttonsInRow = bm.buttonsSet().inRow
+        let buttonsInColumn = bm.buttonsSet().inColumn
+        var tag = 0
+        for row in (startFromRow...buttonsInColumn){
+            let spaceToTop = bm.defineSpaceFor(row: row)
+            for column in (startFromColumn...buttonsInRow){
+                let button = MemberButton()
+                tag += 1
+                button.tag = tag
+                button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+                //
+                let memberStack = bm.createMemberStackView(button: button)
+                memberButtons.append(memberStack)
+                view.addSubview(memberStack)
+                let spaceToRight = bm.defineSpaceFor(column: column)
+                memberStack.trailingAnchor.constraint(equalTo: view.leadingAnchor, constant: spaceToRight).isActive = true
+                memberStack.bottomAnchor.constraint(equalTo: galleryCollectionView.bottomAnchor, constant: spaceToTop).isActive = true
+            }
+        }
+    }
+    
+    private func activateMemberButtonForEach(_ members: [MemberModel]) {
+        for (index, person) in members.enumerated() {
+            let mb = memberButtons[index]
+            mb.member = person
+            mb.nameLabel?.text = person.name
+            mb.debtLabel?.text = person.debt.description
+            mb.avatarButton?.setImage(person.avatar, for: .normal)
         }
     }
 }
 
 extension DividerVC: PopUpDelegate {
-    func handleMale() {
+    func handleEditPopUp() {
         UIView.animate(withDuration: 0.2, animations: {
             self.deBlurWindow()
-            self.newMember(male: true)
-        }) { (_) in
-            self.popUpWindow.removeFromSuperview()
-        }
-    }
-    
-    func handleFemale() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.deBlurWindow()
-            self.newMember(male: false)
+            self.editMember()
         }) { (_) in
             self.popUpWindow.removeFromSuperview()
         }
@@ -145,5 +145,4 @@ extension DividerVC: PopUpDelegate {
         self.popUpWindow.alpha = 0
         self.popUpWindow.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
     }
-    
 }

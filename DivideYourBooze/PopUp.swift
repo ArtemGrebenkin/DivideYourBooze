@@ -9,8 +9,7 @@
 import UIKit
 
 protocol PopUpDelegate {
-    func handleMale()
-    func handleFemale()
+    func handleEditPopUp()
     func handleDismissPopUp()
 }
 
@@ -19,15 +18,25 @@ class PopUp: UIView {
     // MARK: - Properties
     var delegate: PopUpDelegate?
     
-    let buttonMale: MenuButton = {
-        let button = MenuButton(title: "Male", color: #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1))
-        button.addTarget(self, action: #selector(handleMale), for: .touchUpInside)
+    let buttonYellow: MemberButton = {
+        let button = MemberButton()
+        button.setImage(#imageLiteral(resourceName: "PersonYellow"), for: .normal)
+        //button.
+        button.addTarget(self, action: #selector(editMember), for: .touchUpInside)
         return button
     }()
     
-    let buttonFemale: MenuButton = {
-        let button = MenuButton(title: "Female", color: #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1))
-        button.addTarget(self, action: #selector(handleFemale), for: .touchUpInside)
+    let buttonPink: MemberButton = {
+        let button = MemberButton()
+        button.setImage(#imageLiteral(resourceName: "PersonPink"), for: .normal)
+        button.addTarget(self, action: #selector(editMember), for: .touchUpInside)
+        return button
+    }()
+    
+    let buttonBlue: MemberButton = {
+        let button = MemberButton()
+        button.setImage(#imageLiteral(resourceName: "PersonBlue"), for: .normal)
+        button.addTarget(self, action: #selector(editMember), for: .touchUpInside)
         return button
     }()
     
@@ -57,12 +66,10 @@ class PopUp: UIView {
     
     // MARK: - Selectors
     
-    @objc func handleMale() {
-        delegate?.handleMale()
+    @objc func editMember() {
+        delegate?.handleEditPopUp()
     }
-    @objc func handleFemale() {
-        delegate?.handleFemale()
-    }
+
     @objc func handleDismissPopUp() {
         delegate?.handleDismissPopUp()
     }
@@ -85,27 +92,26 @@ class PopUp: UIView {
         layer.shadowOpacity = 0.5
         layer.shadowOffset = CGSize(width: 5, height: 8)
         
-        addSubview(textFieldName)
-        textFieldName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        textFieldName.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -20).isActive = true
+        let buttonsStack = RowStackViews()
+        buttonsStack.addArrangedSubview(buttonBlue)
+        buttonsStack.addArrangedSubview(buttonYellow)
+        buttonsStack.addArrangedSubview(buttonPink)
+        
+        let verticalStack = UIStackView()
+        verticalStack.translatesAutoresizingMaskIntoConstraints = false
+        verticalStack.axis = .vertical
+        verticalStack.alignment = .center
+        verticalStack.spacing = 20
+        verticalStack.distribution = .fill
         textFieldName.delegate = self
-        
-        addSubview(textFieldDebt)
-        textFieldDebt.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        textFieldDebt.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 30).isActive = true
         textFieldDebt.delegate = self
-        
-        addSubview(buttonMale)
-        buttonMale.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        buttonMale.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 80).isActive = true
-        
-        addSubview(buttonFemale)
-        buttonFemale.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        buttonFemale.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 130).isActive = true
-        
-        addSubview(buttonDismiss)
-        buttonDismiss.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        buttonDismiss.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 180).isActive = true
+        verticalStack.addArrangedSubview(textFieldName)
+        verticalStack.addArrangedSubview(textFieldDebt)
+        verticalStack.addArrangedSubview(buttonsStack)
+        verticalStack.addArrangedSubview(buttonDismiss)
+        addSubview(verticalStack)
+        verticalStack.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        verticalStack.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
 
     }
     

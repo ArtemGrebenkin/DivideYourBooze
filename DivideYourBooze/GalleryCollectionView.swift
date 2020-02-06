@@ -10,17 +10,20 @@ import UIKit
 class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var cells = [ItemModel]()
-
+    var height: CGFloat
+    
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        height = SizeManager.shared.screenSize.height * 0.3
+        print("GalleryCollectionView H: \(height)")
         super.init(frame: .zero, collectionViewLayout: layout)
+    
+        backgroundColor = #colorLiteral(red: 0.9967270494, green: 0.9038077593, blue: 0.7417388558, alpha: 1)
         
-        backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         delegate = self
         dataSource = self
         register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCell.reuseId)
-        
         translatesAutoresizingMaskIntoConstraints = false
         showsHorizontalScrollIndicator = false
     }
@@ -44,6 +47,16 @@ class GalleryCollectionView: UICollectionView, UICollectionViewDelegate, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 200)
+        return CGSize(width: 100, height: height * 0.7)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        CGSize(width: 5, height: 0)
+    }
+    
+
 }

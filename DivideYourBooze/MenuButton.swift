@@ -10,13 +10,17 @@ import UIKit
 
 class MenuButton: UIButton {
     
+    //let width: CGFloat = 40
+    //let height: CGFloat = 100
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        //self.frame = CGRect(x: 20, y: 350, width: 30, height: 120)
         backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         translatesAutoresizingMaskIntoConstraints = false
-        layer.cornerRadius = 20
+        layer.cornerRadius = 10
         layer.borderWidth = 1
-        heightAnchor.constraint(equalToConstant: 40).isActive = true
+        heightAnchor.constraint(equalToConstant: 30).isActive = true
         widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     

@@ -10,9 +10,10 @@ import UIKit
 
 class MemberStackView: UIStackView {
     
-    
-    
-    
+    var member: MemberModel?
+    var nameLabel: MainLabel?
+    var debtLabel: MainLabel?
+    var avatarButton: MemberButton?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,16 +21,9 @@ class MemberStackView: UIStackView {
     
     init() {
         super.init(frame: .zero)
-        self.frame = CGRect(x: 20, y: 350, width: 70, height: 100)
-        
         translatesAutoresizingMaskIntoConstraints = false
-        //heightAnchor.constraint(lessThanOrEqualToConstant: 100).isActive = true
-        //widthAnchor.constraint(equalToConstant: 70).isActive = true
-        
-        //let stackView = UIStackView(arrangedSubviews: [button, nameLabel, debtLabel])
         axis = .vertical
         alignment = .center
-        spacing = 5
         distribution = .fill
     }
     

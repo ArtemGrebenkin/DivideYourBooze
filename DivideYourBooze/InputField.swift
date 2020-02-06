@@ -12,10 +12,11 @@ class InputField: UITextField {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.frame = CGRect(x: 0, y: 0, width: 30, height: 170)
         translatesAutoresizingMaskIntoConstraints = false
         borderStyle = .roundedRect
-        heightAnchor.constraint(equalToConstant: 40).isActive = true
-        widthAnchor.constraint(equalToConstant: 150).isActive = true
+        heightAnchor.constraint(equalToConstant: 30).isActive = true
+        widthAnchor.constraint(equalToConstant: 170).isActive = true
         clearButtonMode = .whileEditing
         textAlignment = .center
     }

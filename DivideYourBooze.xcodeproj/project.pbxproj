@@ -11,6 +11,8 @@
 		EE0660C023A7DE9B000F937C /* RowStackViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0660BF23A7DE9B000F937C /* RowStackViews.swift */; };
 		EE07C85323994D8F00C46CED /* MemberButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE07C85223994D8F00C46CED /* MemberButton.swift */; };
 		EE0962BF23A6A16B0072355B /* MemderStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE0962BE23A6A16B0072355B /* MemderStackView.swift */; };
+		EE42E4B723DC970600549192 /* MainLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42E4B623DC970600549192 /* MainLabel.swift */; };
+		EE42E4B923DC997200549192 /* SizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE42E4B823DC997200549192 /* SizeManager.swift */; };
 		EEA26D1023BA7B3000567671 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA26D0F23BA7B2F00567671 /* InputField.swift */; };
 		EEA4C042237DA6CF003A060B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C041237DA6CF003A060B /* AppDelegate.swift */; };
 		EEA4C044237DA6CF003A060B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA4C043237DA6CF003A060B /* SceneDelegate.swift */; };
@@ -24,7 +26,7 @@
 		EEFC0E7423900FAC00BEBB85 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC0E7323900FAC00BEBB85 /* GalleryCollectionViewCell.swift */; };
 		EEFC3EBF23AA6E3600B2FB86 /* PopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC3EBE23AA6E3600B2FB86 /* PopUp.swift */; };
 		EEFC3EC123AA87E200B2FB86 /* MenuButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC3EC023AA87E200B2FB86 /* MenuButton.swift */; };
-		EEFD0BD823BE657D00A77749 /* RowStackViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD0BD723BE657D00A77749 /* RowStackViewManager.swift */; };
+		EEFD0BD823BE657D00A77749 /* ButtonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFD0BD723BE657D00A77749 /* ButtonManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		EE0660BF23A7DE9B000F937C /* RowStackViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowStackViews.swift; sourceTree = "<group>"; };
 		EE07C85223994D8F00C46CED /* MemberButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberButton.swift; sourceTree = "<group>"; };
 		EE0962BE23A6A16B0072355B /* MemderStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemderStackView.swift; sourceTree = "<group>"; };
+		EE42E4B623DC970600549192 /* MainLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLabel.swift; sourceTree = "<group>"; };
+		EE42E4B823DC997200549192 /* SizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeManager.swift; sourceTree = "<group>"; };
 		EEA26D0F23BA7B2F00567671 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
 		EEA4C03E237DA6CF003A060B /* DivideYourBooze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DivideYourBooze.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEA4C041237DA6CF003A060B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -47,7 +51,7 @@
 		EEFC0E7323900FAC00BEBB85 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EEFC3EBE23AA6E3600B2FB86 /* PopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUp.swift; sourceTree = "<group>"; };
 		EEFC3EC023AA87E200B2FB86 /* MenuButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButton.swift; sourceTree = "<group>"; };
-		EEFD0BD723BE657D00A77749 /* RowStackViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowStackViewManager.swift; sourceTree = "<group>"; };
+		EEFD0BD723BE657D00A77749 /* ButtonManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +65,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE5E98B523E86C9B00920FA8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		EEA4C035237DA6CF003A060B = {
 			isa = PBXGroup;
 			children = (
@@ -80,6 +91,7 @@
 		EEA4C040237DA6CF003A060B /* DivideYourBooze */ = {
 			isa = PBXGroup;
 			children = (
+				EE5E98B523E86C9B00920FA8 /* Utilities */,
 				EEFC0E7023900E1000BEBB85 /* Models */,
 				EEA4C041237DA6CF003A060B /* AppDelegate.swift */,
 				EEA4C043237DA6CF003A060B /* SceneDelegate.swift */,
@@ -93,7 +105,9 @@
 				EEFC3EBE23AA6E3600B2FB86 /* PopUp.swift */,
 				EEFC3EC023AA87E200B2FB86 /* MenuButton.swift */,
 				EEA26D0F23BA7B2F00567671 /* InputField.swift */,
-				EEFD0BD723BE657D00A77749 /* RowStackViewManager.swift */,
+				EEFD0BD723BE657D00A77749 /* ButtonManager.swift */,
+				EE42E4B623DC970600549192 /* MainLabel.swift */,
+				EE42E4B823DC997200549192 /* SizeManager.swift */,
 				EEA4C04D237DA6D1003A060B /* Assets.xcassets */,
 				EEA4C04F237DA6D1003A060B /* LaunchScreen.storyboard */,
 				EEA4C052237DA6D1003A060B /* Info.plist */,
@@ -184,6 +198,7 @@
 			files = (
 				EEFC0E7223900E3A00BEBB85 /* ItemModel.swift in Sources */,
 				EE07C85323994D8F00C46CED /* MemberButton.swift in Sources */,
+				EE42E4B923DC997200549192 /* SizeManager.swift in Sources */,
 				EEA4C05B237DB570003A060B /* DividerVC.swift in Sources */,
 				EEA26D1023BA7B3000567671 /* InputField.swift in Sources */,
 				EE0660C023A7DE9B000F937C /* RowStackViews.swift in Sources */,
@@ -191,12 +206,13 @@
 				EE04178C239E9FC800827B5E /* MemberModel.swift in Sources */,
 				EE0962BF23A6A16B0072355B /* MemderStackView.swift in Sources */,
 				EEA4C044237DA6CF003A060B /* SceneDelegate.swift in Sources */,
-				EEFD0BD823BE657D00A77749 /* RowStackViewManager.swift in Sources */,
+				EEFD0BD823BE657D00A77749 /* ButtonManager.swift in Sources */,
 				EEFC0E6F23900B2C00BEBB85 /* GalleryCollectionView.swift in Sources */,
 				EEFC0E7423900FAC00BEBB85 /* GalleryCollectionViewCell.swift in Sources */,
 				EEFC3EBF23AA6E3600B2FB86 /* PopUp.swift in Sources */,
 				EEFC3EC123AA87E200B2FB86 /* MenuButton.swift in Sources */,
 				EEA4C04C237DA6D0003A060B /* DivideYourBooze.xcdatamodeld in Sources */,
+				EE42E4B723DC970600549192 /* MainLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
